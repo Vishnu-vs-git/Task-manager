@@ -10,4 +10,8 @@ export class TasksService {
   async getTasks() {
     return this._taskRepo.findAll();
   }
+  async getTaskById(id: string): Promise<>{
+    const task = this._taskRepo.findById(id);
+    if(!task) throw new 
+  }
 }
