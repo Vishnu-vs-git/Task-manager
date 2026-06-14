@@ -5,6 +5,8 @@ import { TaskNotFoundError } from './errors/task-not-found.error';
 import { TaskResponseDTO } from './dto/task-response.dto';
 import { TaskMapper } from './mappers/task.mapper';
 import { ITaskService } from './interface/tasks.service.interface';
+import { UpdateTaskDTO } from './dto/update-task.dto';
+import { CreateTaskDTO } from './dto/create-task.dto';
 
 @Injectable()
 export class TasksService implements ITaskService{
@@ -28,5 +30,15 @@ export class TasksService implements ITaskService{
 
     return TaskMapper.toResponseDTO(task)
   }
-  async updateTask(taskId:string,data:)
+  async updateTask(taskId:string,data:UpdateTaskDTO):Promise<TaskResponseDTO>{
+      
+    const  updated = await this._taskRepo.updateById(taskId,data);
+    if(!updated){
+     throw new TaskNotFoundError(taskId)
+    }
+      return  TaskMapper.toResponseDTO(updated)
+  }
+  async createTask(dto:CreateTaskDTO):Promise<TaskResponseDTO>{
+      const created = await this._taskRepo.
+  }
 }
